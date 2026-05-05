@@ -186,12 +186,33 @@ export const db = {
   deleteStaff: async (id: string) => {
       await supabase.from('staff').delete().eq('id', id);
   },
-  deleteStudentMappingBatch: async (...args: any[]) => {
-      // Stub
+  deleteStudentMappingBatch: async (studentIds: string[], examId: string, examDate: string, session: string, room: string) => {
+      let query = supabase.from('student_exam_mapping')
+          .delete()
+          .in('student_id', studentIds)
+          .eq('subject_id', examId)
+          .eq('exam_date', examDate || '')
+          .eq('session', session || '')
+          .eq('room', room || '');
+          
+      const { error } = await query;
+      if (error) throw new Error(error.message);
   },
-  updateStudentMappingBatch: async (...args: any[]) => {
-      // Missing proper batch update due to missing exam_id in args? 
-      // Supabase supports update on matching, let's skip complex mapping here for now.
+  updateStudentMappingBatch: async (studentIds: string[], oldMapping: any, newMapping: any) => {
+      let query = supabase.from('student_exam_mapping')
+          .update({
+              exam_date: newMapping.date || '',
+              session: newMapping.session || '',
+              room: newMapping.room || ''
+          })
+          .in('student_id', studentIds)
+          .eq('subject_id', oldMapping.examId)
+          .eq('exam_date', oldMapping.date || '')
+          .eq('session', oldMapping.session || '')
+          .eq('room', oldMapping.room || '');
+          
+      const { error } = await query;
+      if (error) throw new Error(error.message);
   },
   resetCheatingCount: async (id: string) => {
       await supabase.from('results').update({ violation_count: 0 }).eq('id', id);
@@ -241,7 +262,22 @@ export const db = {
   updateResultScore: async (id: string, score: number, answers: any[]) => {
       await supabase.from('results').update({ score, answers }).eq('id', id);
   },
-  updateStudentMapping: async (...args: any[]) => {},
+  updateStudentMapping: async (studentIds: string[], data: { examId: string, examDate?: string, room?: string, session?: string }) => {
+      await supabase.from('student_exam_mapping')
+          .delete()
+          .in('student_id', studentIds)
+          .eq('subject_id', data.examId);
+
+      const records = studentIds.map(studentId => ({
+          student_id: studentId,
+          subject_id: data.examId,
+          exam_date: data.examDate || '',
+          room: data.room || '',
+          session: data.session || ''
+      }));
+      const { error } = await supabase.from('student_exam_mapping').insert(records);
+      if (error) throw new Error(error.message);
+  },
   deleteUserResults: async (userId: string) => {
       await supabase.from('results').delete().eq('peserta_id', userId);
   },
