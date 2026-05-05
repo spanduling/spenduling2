@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Automatic Cache Cleaning Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- Fix for "Cannot set property fetch of #<Window> which has only a getter" -->
+    <script>
+      if (typeof window !== 'undefined') {
+        try {
+          const originalFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return originalFetch; },
+            set: function(val) { /* Ignore polyfill overwrites */ },
+            configurable: true
+          });
+        } catch (e) {}
+      }
+    </script>
+
+    <title>COMPUTER BASED TEST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "CBT Application",
+  "short_name": "CBT",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2459a9",
+  "orientation": "portrait",
+  "description": "Platform ujian online berbasis web yang aman dan responsif.",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/vite.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
