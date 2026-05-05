@@ -1224,8 +1224,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, onLogout, 
           editDate,
           editSession,
           editSchoolAccess,
-          editingExam.shuffleQuestions,
-          editingExam.shuffleOptions,
+          editingExam.shuffleQuestions || false,
+          editingExam.shuffleOptions || false,
           editFormUrl
       );
       setIsEditModalOpen(false);
@@ -1419,8 +1419,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, onLogout, 
               viewingQuestionsExam.examDate || '',
               viewingQuestionsExam.session || '',
               viewingQuestionsExam.schoolAccess || [],
-              viewingQuestionsExam.shuffleQuestions,
-              viewingQuestionsExam.shuffleOptions,
+              viewingQuestionsExam.shuffleQuestions || false,
+              viewingQuestionsExam.shuffleOptions || false,
               viewingQuestionsExam.formUrl
           );
           setViewingQuestionsExam(updatedExam);
@@ -1483,8 +1483,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ user, onLogout, 
               viewingQuestionsExam.examDate || '',
               viewingQuestionsExam.session || '',
               viewingQuestionsExam.schoolAccess || [],
-              field === 'shuffleQuestions' ? value : viewingQuestionsExam.shuffleQuestions,
-              field === 'shuffleOptions' ? value : viewingQuestionsExam.shuffleOptions,
+              field === 'shuffleQuestions' ? value : (viewingQuestionsExam.shuffleQuestions || false),
+              field === 'shuffleOptions' ? value : (viewingQuestionsExam.shuffleOptions || false),
               viewingQuestionsExam.formUrl
           );
           setViewingQuestionsExam(updatedExam);
