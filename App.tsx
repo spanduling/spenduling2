@@ -145,7 +145,9 @@ const App: React.FC = () => {
           
           // Simple YYYY-MM-DD comparison for "Today" (using local date)
           const today = new Date();
-          const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+          const offset = today.getTimezoneOffset();
+          const localToday = new Date(today.getTime() - (offset*60*1000));
+          const todayStr = localToday.toISOString().split('T')[0];
           
           // Check if ANY exam is scheduled for today (either via schoolAccess or specific mapping)
           const hasExamToday = myExams.some(e => {
@@ -161,7 +163,11 @@ const App: React.FC = () => {
                     const [start, end] = mapDate.split('|');
                     return todayStr >= start && todayStr <= end;
                 }
-                return mapDate === todayStr;
+                if (mapDate) {
+                    return mapDate === todayStr;
+                }
+                // If mapping exists but no custom date, fallback to exam's globally configured date
+                return (e.examDate || '').trim() === todayStr;
             })) return true;
             
             return false;

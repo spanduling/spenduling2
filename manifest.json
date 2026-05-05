@@ -9,15 +9,15 @@
   "description": "Platform ujian online berbasis web yang aman dan responsif.",
   "icons": [
     {
-      "src": "/vite.svg",
+      "src": "https://lh3.googleusercontent.com/d/1n5CE1ey6jzlmYWZ1KLQOIjs7bBnxw3u8",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/vite.svg",
+      "src": "https://lh3.googleusercontent.com/d/1n5CE1ey6jzlmYWZ1KLQOIjs7bBnxw3u8",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

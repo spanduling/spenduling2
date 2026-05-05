@@ -46,8 +46,13 @@ export const PWAInstallPrompt: React.FC = () => {
                     onClick={handleInstallClick}
                     className="bg-blue-600 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 hover:bg-blue-700 transition transform hover:scale-105 border-2 border-white/20 backdrop-blur-sm"
                 >
-                    <div className="bg-white/20 p-2 rounded-xl">
-                        <Download size={20} />
+                    <div className="bg-white p-1 rounded-xl w-10 h-10 flex items-center justify-center">
+                        <img 
+                            src="https://lh3.googleusercontent.com/d/1n5CE1ey6jzlmYWZ1KLQOIjs7bBnxw3u8" 
+                            alt="CBT Logo" 
+                            className="w-8 h-8 object-contain"
+                            referrerPolicy="no-referrer"
+                        />
                     </div>
                     <div className="text-left pr-2">
                         <p className="text-[10px] font-bold uppercase tracking-wider opacity-70">Install Aplikasi</p>

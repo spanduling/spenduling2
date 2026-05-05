@@ -62,9 +62,9 @@ export const StudentFlow: React.FC<StudentFlowProps> = ({ user, onStartExam, onL
     // Refresh user mappings directly from DB to ensure we have the latest
     const { data: mappings } = await db.getStudentMappings(user.id);
     const updatedMappings = (mappings || []).map((m: any) => ({
-        id: m.id,
-        examId: m.subject_id,
-        examDate: m.exam_date,
+        id: m.id || m.examId,
+        examId: m.examId || m.subject_id,
+        examDate: m.examDate || m.exam_date,
         session: m.session,
         room: m.room
     }));
@@ -222,6 +222,16 @@ export const StudentFlow: React.FC<StudentFlowProps> = ({ user, onStartExam, onL
       background: `linear-gradient(to bottom, ${settings.themeColor}, ${settings.gradientEndColor})`
   };
 
+  const renderToast = () => toast && (
+    <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-[500] animate-in slide-in-from-top-4 duration-300">
+        <div className={`px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border font-sans max-w-sm text-center ${
+            toast.type === 'error' ? 'bg-red-600 border-red-500 text-white' : 'bg-green-600 border-green-500 text-white'
+        }`}>
+            <span className="font-bold text-sm leading-relaxed">{toast.message}</span>
+        </div>
+    </div>
+  );
+
   // --- VIEW 1: DASHBOARD ---
   if (step === 'DASHBOARD') {
     return (
@@ -321,8 +331,8 @@ export const StudentFlow: React.FC<StudentFlowProps> = ({ user, onStartExam, onL
                     );
                 })}
             </div>
-
         </div>
+        {renderToast()}
       </div>
     );
   }
@@ -359,6 +369,7 @@ export const StudentFlow: React.FC<StudentFlowProps> = ({ user, onStartExam, onL
                       <button onClick={handleSubmitData} className="w-full text-white font-bold py-3.5 rounded mt-8 shadow-md hover:shadow-lg transition transform active:scale-95" style={{ backgroundColor: settings.themeColor }}>Submit</button>
                  </div>
             </main>
+            {renderToast()}
         </div>
       );
   }
@@ -384,9 +395,10 @@ export const StudentFlow: React.FC<StudentFlowProps> = ({ user, onStartExam, onL
                            <button onClick={handleStartTest} className="flex-1 text-white font-bold py-3.5 rounded-full shadow-lg transition transform hover:-translate-y-1 hover:shadow-xl" style={{ backgroundColor: settings.themeColor }}>Mulai</button>
                        </div>
                   </div>
-             </div>
-        </div>
-     );
+              </div>
+              {renderToast()}
+         </div>
+      );
   }
 
   return (
