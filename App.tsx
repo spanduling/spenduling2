@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, UserRole, Exam, AppSettings } from './types';
 import { db } from './services/database'; // SWITCHED TO REAL DB
-import { cacheManager } from './utils/cache'; 
+import { cacheManager, getSafeImageUrl } from './utils/cache'; 
 import { ExamInterface } from './components/ExamInterface';
 import { AdminDashboard } from './components/AdminDashboard';
 import { SuperAdminDashboard } from './components/SuperAdminDashboard';
@@ -280,7 +280,7 @@ const App: React.FC = () => {
                       {settings.ministryLogoUrl && (
                           <div className="bg-white p-1 rounded-full shadow">
                               <img 
-                                  src={settings.ministryLogoUrl} 
+                                  src={getSafeImageUrl(settings.ministryLogoUrl)} 
                                   className="h-10 w-10 object-contain" 
                                   alt="Ministry Logo"
                                   referrerPolicy="no-referrer"
@@ -301,7 +301,7 @@ const App: React.FC = () => {
               {settings.schoolLogoUrl && (
                   <div className="flex justify-center mb-6">
                       <img 
-                          src={settings.schoolLogoUrl} 
+                          src={getSafeImageUrl(settings.schoolLogoUrl)} 
                           className="w-40 h-auto object-contain animate-float-slow filter drop-shadow-xl" 
                           alt="School Logo" 
                           referrerPolicy="no-referrer"

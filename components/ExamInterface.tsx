@@ -4,6 +4,7 @@ import "react-quill-new/dist/quill.snow.css";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { Exam, ExamResult, User, Question, AppSettings } from "../types";
+import { getSafeImageUrl } from "../utils/cache";
 import { playAlertSound } from "../utils/sound";
 import {
   Timer,
@@ -1380,10 +1381,11 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({
           </button>
 
           <img
-            src={previewImage}
+            src={getSafeImageUrl(previewImage)}
             alt="Preview"
             className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()} // Optional: keep modal open if clicking image itself, but user said "click image to zoom out", usually implies clicking away or toggle. I'll let click close it for simplicity or add specific logic.
+            referrerPolicy="no-referrer"
           />
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm bg-black/50 px-4 py-2 rounded-full pointer-events-none">
             Klik dimana saja untuk menutup
@@ -1583,9 +1585,10 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({
             {settings.ministryLogoUrl && (
               <div className="bg-white p-1 rounded-full">
                 <img
-                  src={settings.ministryLogoUrl}
+                  src={getSafeImageUrl(settings.ministryLogoUrl)}
                   className="h-8 w-8 object-contain"
                   alt="Ministry Logo"
+                  referrerPolicy="no-referrer"
                 />
               </div>
             )}
@@ -1707,10 +1710,11 @@ export const ExamInterface: React.FC<ExamInterfaceProps> = ({
               }
             >
               <img
-                src={currentQ.imgUrl}
+                src={getSafeImageUrl(currentQ.imgUrl)}
                 alt="Soal"
                 className="w-full h-auto object-contain transition-transform duration-200 ease-out group-hover:scale-[2.5]"
                 style={{ transformOrigin: "var(--zoom-x) var(--zoom-y)" }}
+                referrerPolicy="no-referrer"
                 onError={(e) =>
                   (e.currentTarget.parentElement!.style.display = "none")
                 }

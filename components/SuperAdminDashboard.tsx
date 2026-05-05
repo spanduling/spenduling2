@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, UserRole, AppSettings } from '../types';
 import { db } from '../services/database'; // SWITCHED TO REAL DB
+import { getSafeImageUrl } from '../utils/cache';
 import { Users, LogOut, Shield, UserPlus, Trash2, Edit, Search, LayoutDashboard, Palette, Save, AlertTriangle, Speaker, Clock, Upload, Image as ImageIcon, Link } from 'lucide-react';
 
 interface Props {
@@ -269,7 +270,7 @@ export const SuperAdminDashboard: React.FC<Props> = ({ user, onLogout, settings,
                                     <div className="flex-shrink-0 flex flex-col items-center">
                                         <div className={`flex items-center justify-center bg-gray-50 border-2 border-dashed border-gray-300 overflow-hidden shadow-sm ${getPreviewContainerClass()}`}>
                                             {logoUrl ? (
-                                                <img src={logoUrl} alt="Preview" className="w-full h-full object-contain bg-white" />
+                                                <img src={getSafeImageUrl(logoUrl)} alt="Preview" className="w-full h-full object-contain bg-white" referrerPolicy="no-referrer" />
                                             ) : (
                                                 <ImageIcon className="text-gray-400 w-8 h-8" />
                                             )}

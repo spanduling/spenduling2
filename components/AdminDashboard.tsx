@@ -166,7 +166,13 @@ const escapeCSV = (field: any): string => {
 };
 
 const processImageUrl = (url: string): string => {
-    const trimmed = url.trim();
+    if (!url) return '';
+    let trimmed = url.trim();
+    // Auto-convert Google Drive viewer links to direct image links
+    const gdriveMatch = trimmed.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([-\w]+)/);
+    if (gdriveMatch) {
+         trimmed = `https://drive.google.com/uc?id=${gdriveMatch[1]}`;
+    }
     return trimmed;
 };
 
